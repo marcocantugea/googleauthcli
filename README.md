@@ -22,9 +22,9 @@
 
 ## 📝 Table of Contents
 
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Deployment](#deployment)
+- [Acerca](#about)
+- [Requerimientos](#Requerimientos)
+- [Instalacion](#install)
 - [Usage](#usage)
 - [Built Using](#built_using)
 - [TODO](../TODO.md)
@@ -32,30 +32,26 @@
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
-## 🧐 About <a name = "about"></a>
+## 🧐 Acerca <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+Estas clases son de ayuda a simplificar el proceso de obtener el cliente del servicio de google asi como realizar la 
+autentificacion de Google
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+## 🏁 Requetimientos <a name = "Requerimientos"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+Antes de utilizar esta clase ser requiere crear las credenciales oAuth de google descargando el archivo json de la consola de APIs.
 
-### Prerequisites
+Para mayor informacion utilize la siguiente liga:
 
-What things you need to install the software and how to install them.
+<a href="https://developers.google.com/identity/protocols/oauth2">https://developers.google.com/identity/protocols/oauth2</a>
 
-```
-Give examples
-```
+### Instalacion <a name = "install"></a>
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
+Para la instalaci&oacute;n se utiliza via composer
 
 ```
-Give the example
+composer require mcg/google-auth-service
+
 ```
 
 And repeat
