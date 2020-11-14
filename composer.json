@@ -1,6 +1,6 @@
 {
     "name": "mcg/google-auth-service",
-    "description": "Libreria de servicio de Google que ayuda a crar facil una autentificacion del usuario",
+    "description": "Librerías en PHP para facilitar la autentificación hacia los servicios de Google como Gmail, Google  Drive usando las REST APIs de Google.",
     "require": {
         "php": "^7.0",
         "google/apiclient": "^2.8",
