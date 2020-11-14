@@ -2,6 +2,7 @@
 
 namespace GoogleServices\Mail;
 
+use Exception;
 use Google_Client;
 use Google_Service_Gmail;
 
@@ -84,10 +85,10 @@ class AuthGoogleMailService
     
     /**
      * Realiza el proceso de dar  permisos a la aplicacion si se requiere cambiar de credenciales
-     *
+     * Si no tiene un callback regresa el url para la autentificación
      * @return void
      */
-    public static function grantAccessToCLI(callable $functoDisplayAnSetTheCode)
+    public static function grantAccessToCLI(callable $callback=null)
     {
         $GoogleAthService = new AuthGoogleMailService();
         $GoogleClient = $GoogleAthService->getClient();
@@ -106,31 +107,61 @@ class AuthGoogleMailService
                 //Debe solicitar al usuario el acceso a google
                 $authLink = $GoogleClient->createAuthUrl();
 
-                $authCode=$functoDisplayAnSetTheCode($authLink);
-                // try {
-                //     $this->openBrowser($authLink);
-                // } catch (\Throwable $th) {
-                //     LoggerHandler::logException('Makegoogleauth','makeGoogleAuth','Fail to open browser',$th);
-                //     //throw $th;
-                // }
-               
-                // $this->comment("URL > ". $authLink);
-                // $this->info("Ingrese el codigo de verificacion: ");
-                // $authCode=trim(fgets(STDIN));
+                if(is_callable($callback)){
+                    //obtiene el token de un callback
+                    $authCode=$callback($authLink);
+                    $tokenGenerated=$GoogleClient->fetchAccessTokenWithAuthCode($authCode);
+                    $GoogleClient->setAccessToken($tokenGenerated);
+                    //Error en en proceso
+                    if(array_key_exists('error',$tokenGenerated)){
+                        throw new Exception(join(', ', $tokenGenerated));
+                    } 
 
-                $tokenGenerated=$GoogleClient->fetchAccessTokenWithAuthCode($authCode);
-                $GoogleClient->setAccessToken($tokenGenerated);
-                //Error en en proceso
-                if(array_key_exists('error',$tokenGenerated)){
-                    throw new Exception(join(', ', $tokenGenerated));
+                    //guarda token
+                    $GoogleAthService->saveGoogletoken($GoogleClient->getAccessToken());
+                }else{
+                    return $authLink;    
                 }
+                
             }
-
-            //guarda token
-            $GoogleAthService->saveGoogletoken($GoogleClient->getAccessToken());
         }
     }
 
+    /**
+     * Funcion para obenter la liga URL para activar google 
+     *
+     * @return string
+     */
+    public static function getActivationURL():string{
+        
+        $GoogleAthService = new AuthGoogleMailService();
+        $GoogleClient = $GoogleAthService->getClient();
+        
+        $authLink = $GoogleClient->createAuthUrl();
+        return $authLink;
+    }
+
+    /**
+     * Asigna el token obtenido de la URL de google
+     * guarda el token donde se especifique en la clase
+     *
+     * @param string $authCode
+     * @return void
+     */
+    public static function setActivationCode(string $authCode){
+
+        $GoogleAthService = new AuthGoogleMailService();
+        $GoogleClient = $GoogleAthService->getClient();
+        $tokenGenerated = $GoogleClient->fetchAccessTokenWithAuthCode($authCode);
+        
+        $GoogleClient->setAccessToken($tokenGenerated);
+        //Error en en proceso
+        if (array_key_exists('error', $tokenGenerated)) {
+            throw new Exception(join(', ', $tokenGenerated));
+        }
+        //guarda token
+        $GoogleAthService->saveGoogletoken($GoogleClient->getAccessToken());
+    }
 
     /**
      * Get the value of tokenPath

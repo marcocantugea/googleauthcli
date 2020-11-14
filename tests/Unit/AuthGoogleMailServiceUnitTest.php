@@ -32,7 +32,7 @@ final class AuthGoogleMailServiceUnitTest extends TestCase{
      */
     public function test_ObtieneElClienteDelSevicioDeGoogleConError(){
         try {
-            $GmailClient= $this->GoogleMailServiceClient->getClient();
+            $GmailClient= $this->GoogleMailServiceClient->setCredentialsJsonPath("./credentials-gmailcredentialdsfs.json")->getClient();
         } catch (\Throwable $th) {
             $this->asserttrue(true);
             //throw $th;
@@ -67,6 +67,49 @@ final class AuthGoogleMailServiceUnitTest extends TestCase{
         try {
             $GmailClient= $this->GoogleMailServiceClient->setCredentialsJsonPath("./credentials-gmailcredentials.json")->getClient();
             $this->assertNull($this->GoogleMailServiceClient->getGoogleToken());
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    /**
+     * Prueba de impresion de url para obtener el codigo de verificacion
+     *
+     * @return void
+     */
+    public function test_TestgrantAccessToCLI(){
+        try {
+            $urlToAuth=AuthGoogleMailService::grantAccessToCLI();
+            $this->assertIsString($urlToAuth);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    /**
+     * Obtiene la URL para la autentificacion a google
+     *
+     * @return void
+     */
+    public function test_ObtenerURLDeAutentificacion(){
+        try {
+            $url=AuthGoogleMailService::getActivationURL();
+            $this->assertIsString($url);
+            print_r($url);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function test_GenerarTokendeAcceso(){
+        try {
+            AuthGoogleMailService::setActivationCode(readline());
+            if(file_exists("./token.json")){
+                $this->assertTrue(true);
+            }else{
+                $this->assertTrue(false);
+            }
+            
         } catch (\Throwable $th) {
             throw $th;
         }
