@@ -2,6 +2,7 @@
     "name": "mcg/google-auth-service",
     "description": "Libreria de servicio de Google que ayuda a crar facil una autentificacion del usuario",
     "require": {
+        "php": "^7.0",
         "google/apiclient": "^2.8",
         "phpunit/phpunit": "^9.4"
     },
