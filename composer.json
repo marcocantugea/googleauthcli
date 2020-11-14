@@ -1,0 +1,25 @@
+{
+    "name": "mcg/google-auth-service",
+    "description": "Libreria de servicio de Google que ayuda a crar facil una autentificacion del usuario",
+    "require": {
+        "google/apiclient": "^2.8",
+        "phpunit/phpunit": "^9.4"
+    },
+    "authors": [
+        {
+            "name": "Marco Cantu Gea",
+            "email": "marco.cantu@gme.mx"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "GoogleServices\\Mail\\":"src/GoogleServices/Mail/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
