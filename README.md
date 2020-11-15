@@ -26,11 +26,7 @@
 - [Requerimientos](#Requerimientos)
 - [Instalacion](#install)
 - [Autentificaci&oacute;n a GMail por API](#usageMail)
-- [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
+- [Obtener Correos de Gmail por API](#getGmailAPI)
 
 ## 🧐 Acerca <a name = "about"></a>
 
@@ -83,21 +79,46 @@ $AuthGoogleMailService->setTokenPath("./tokens/tokenGmail.json");
 $MailClient=$AuthGoogleMailService->getClient();
 ...
 
+Si deseamos configurar mas propiedades teneos las siguientes
+
 ...
- $GoogleMailServiceClient= new AuthGoogleMailService()->getClient();
+$AuthGoogleMailService= new AuthGoogleMailService();
+$AuthGoogleMailService->setCredentialsJsonPath("./credenciales/credentialsGmail.json");
+$AuthGoogleMailService->setTokenPath("./tokens/tokenGmail.json");
+$AuthGoogleMailService->setClientName("Aplication or client name");
+$AuthGoogleMailService->setScope(Google_Service_Gmail::GMAIL_READONLY);
+$AuthGoogleMailService->setAccessType("offline");
+$AuthGoogleMailService->setSetPrompt("select_account consent");
+
+$MailClient=$AuthGoogleMailService->getClient();
+
 ...
 
-De esta manera obtenemos el cliente 
+### Obtener Correos de Gmail por API <a name = "getGmailAPI"></a>
 
-### Break down into end to end tests
-
-Explain what these tests test and why
+Para obtener los correos de GMAIL por API utilizamos el siguiente ejemplo
 
 ```
-Give an example
+  //Obtenemos el servicio de gmail
+  $GoogleClient = (new AuthGoogleMailService())->getClient();
+  $Gmailservice = new Google_Service_Gmail($GoogleClient);
+
+  //parametros para la obtencion de los correos
+  $options = array('labelIds' => 'INBOX', 'maxResults' => 10, 'q' => 'is:unread');
+  //Obtiene los mensajes
+  $messages = $Gmailservice->users_messages->listUsersMessages('me', $options);
+  
+  foreach ($messages as $message) {
+    //Obtiene lo escencial del mensaje
+    $Emailmessage = $Gmailservice->users_messages->get('me', $message['id'], ['format' => 'FULL']);
+    //Desglosa el mensaje para ver si tiene adjuntos
+    $MessagePayload = $Emailmessage->getPayload()->getParts();
+    //Obtiene los id de los attchments
+    $this->getIDsAttchmentsFromMessage($message['id'], $MessagePayload);
+  }
 ```
 
-### And coding style tests
+<!-- ### And coding style tests
 
 Explain what these tests test and why
 
@@ -130,4 +151,4 @@ See also the list of [contributors](https://github.com/kylelobo/The-Documentatio
 
 - Hat tip to anyone whose code was used
 - Inspiration
-- References
+- References -->
