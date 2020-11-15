@@ -3,8 +3,10 @@
     "description": "Librerías en PHP para facilitar la autentificación hacia los servicios de Google como Gmail, Google  Drive usando las REST APIs de Google.",
     "require": {
         "php": "^7.2",
-        "google/apiclient": "^2.8",
-        "phpunit/phpunit": "^9.4"
+        "google/apiclient": "^2.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
     },
     "authors": [
         {
