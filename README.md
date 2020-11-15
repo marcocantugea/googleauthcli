@@ -111,9 +111,8 @@ Para obtener los correos de GMAIL por API utilizamos el siguiente ejemplo
   foreach ($messages as $message) {
     //Obtiene lo escencial del mensaje
     $Emailmessage = $Gmailservice->users_messages->get('me', $message['id'], ['format' => 'FULL']);
-    //Desglosa el mensaje para ver si tiene adjuntos
-    $MessagePayload = $Emailmessage->getPayload()->getParts();
-    //Obtiene los id de los attchments
-    $this->getIDsAttchmentsFromMessage($message['id'], $MessagePayload);
+    foreach($Emailmessage['payload']->getHeaders() as $header){
+      print_r($header->name." : ".$header->value . PHP_EOL);
+    }
   }
 ```
