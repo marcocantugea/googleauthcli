@@ -25,7 +25,7 @@
 - [Acerca](#about)
 - [Requerimientos](#Requerimientos)
 - [Instalacion](#install)
-- [Usage](#usage)
+- [Autentificaci&oacute;n a GMail por API](#usageMail)
 - [Built Using](#built_using)
 - [TODO](../TODO.md)
 - [Contributing](../CONTRIBUTING.md)
@@ -45,6 +45,11 @@ Para mayor informacion utilize la siguiente liga:
 
 <a href="https://developers.google.com/identity/protocols/oauth2">https://developers.google.com/identity/protocols/oauth2</a>
 
+Una vez descargado nuesro archivo de credenciales lo agregamos a nuestro proyecto, puede ser en la raiz del proyecto o en alguna 
+carpeta deseada, por defecto , la libreria busca el archivo "./credentials.json" en la ra&iacute;z del proyecto.
+
+En los siguientes ejemplo se ralizara basandonos que el archivo de credenciales esta en la ra&iacute;z del proyecto.
+
 ### Instalacion <a name = "install"></a>
 
 Para la instalaci&oacute;n se utiliza via composer
@@ -54,17 +59,35 @@ composer require mcg/google-auth-service
 
 ```
 
-And repeat
+## 🔧 Autentificaci&oacute;n a GMail por API <a name = "usageMail"></a>
 
-```
-until finished
-```
+Basandonos que el archivo de credenciales esta en la raiz del proyecto y tiene como nombre "credentials.json" se requiere que se agregen los permisos a esta aplicacion y crear un archivo del token que genera la autentificacion oAuth.
 
-End with an example of getting some data out of the system or using it for a little demo.
+Para inicializar esta autentificaci&oacute;n se necesita llamar a la pagina de google para que el usuario le de perimiso a la aplicaci&oacute:n.
 
-## 🔧 Running the tests <a name = "tests"></a>
+Para eso utilizamos el siguiente codigo desde nuestra consola:
+...
+  $url=AuthGoogleMailService::getActivationURL();
+  print_r($url);
+  AuthGoogleMailService::setActivationCode(readline());
+...
 
-Explain how to run the automated tests for this system.
+El resultado sera un archivo json en la raiz de nuestro proyecto con el token oAuth generado por Google.
+
+Si deseamos configurar la ruta de el archivo de credenciales y del token, utilizamos el siguente codigo.
+...
+$AuthGoogleMailService= new AuthGoogleMailService();
+$AuthGoogleMailService->setCredentialsJsonPath("./credenciales/credentialsGmail.json");
+$AuthGoogleMailService->setTokenPath("./tokens/tokenGmail.json");
+
+$MailClient=$AuthGoogleMailService->getClient();
+...
+
+...
+ $GoogleMailServiceClient= new AuthGoogleMailService()->getClient();
+...
+
+De esta manera obtenemos el cliente 
 
 ### Break down into end to end tests
 
