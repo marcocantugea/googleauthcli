@@ -62,26 +62,26 @@ Basandonos que el archivo de credenciales esta en la raiz del proyecto y tiene c
 Para inicializar esta autentificaci&oacute;n se necesita llamar a la pagina de google para que el usuario le de perimiso a la aplicaci&oacute:n.
 
 Para eso utilizamos el siguiente codigo desde nuestra consola:
-...
+```
   $url=AuthGoogleMailService::getActivationURL();
   print_r($url);
   AuthGoogleMailService::setActivationCode(readline());
-...
+```
 
 El resultado sera un archivo json en la raiz de nuestro proyecto con el token oAuth generado por Google.
 
 Si deseamos configurar la ruta de el archivo de credenciales y del token, utilizamos el siguente codigo.
-...
+```
 $AuthGoogleMailService= new AuthGoogleMailService();
 $AuthGoogleMailService->setCredentialsJsonPath("./credenciales/credentialsGmail.json");
 $AuthGoogleMailService->setTokenPath("./tokens/tokenGmail.json");
 
 $MailClient=$AuthGoogleMailService->getClient();
-...
+```
 
 Si deseamos configurar mas propiedades teneos las siguientes
 
-...
+```
 $AuthGoogleMailService= new AuthGoogleMailService();
 $AuthGoogleMailService->setCredentialsJsonPath("./credenciales/credentialsGmail.json");
 $AuthGoogleMailService->setTokenPath("./tokens/tokenGmail.json");
@@ -92,7 +92,7 @@ $AuthGoogleMailService->setSetPrompt("select_account consent");
 
 $MailClient=$AuthGoogleMailService->getClient();
 
-...
+```
 
 ### Obtener Correos de Gmail por API <a name = "getGmailAPI"></a>
 
@@ -117,38 +117,3 @@ Para obtener los correos de GMAIL por API utilizamos el siguiente ejemplo
     $this->getIDsAttchmentsFromMessage($message['id'], $MessagePayload);
   }
 ```
-
-<!-- ### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## 🎈 Usage <a name="usage"></a>
-
-Add notes about how to use the system.
-
-## 🚀 Deployment <a name = "deployment"></a>
-
-Add additional notes about how to deploy this on a live system.
-
-## ⛏️ Built Using <a name = "built_using"></a>
-
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
-
-## ✍️ Authors <a name = "authors"></a>
-
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
-
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References -->
