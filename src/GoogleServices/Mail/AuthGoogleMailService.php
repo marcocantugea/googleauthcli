@@ -12,7 +12,7 @@ class AuthGoogleMailService
     private  $tokenPath = __DIR__."..\\..\\..\\..\\token.json";
     private $Expiretoken = false;
     private $clientName="This is my CLI app";
-    private $credentialsJsonPath=__DIR__."..\\..\\..\\..\\credentials.json";
+    private $credentialsJsonPath=__DIR__."..\\..\\..\\..\\credentialsGmail.json";
     private $accessType="offline";
     private $setPrompt="select_account consent";
     private $scope=Google_Service_Gmail::GMAIL_READONLY;
