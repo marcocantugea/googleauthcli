@@ -9,10 +9,10 @@ use Google_Service_Gmail;
 class AuthGoogleMailService
 {
 
-    private  $tokenPath = __DIR__."..\\..\\..\\..\\token.json";
+    private  $tokenPath = "token.json";
     private $Expiretoken = false;
     private $clientName="This is my CLI app";
-    private $credentialsJsonPath=__DIR__."..\\..\\..\\..\\credentialsGmail.json";
+    private $credentialsJsonPath="credentials.json";
     private $accessType="offline";
     private $setPrompt="select_account consent";
     private $scope=Google_Service_Gmail::GMAIL_READONLY;
