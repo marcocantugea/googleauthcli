@@ -14,7 +14,7 @@
             "email": "marco.cantu@gme.mx"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "GoogleServices\\Mail\\":"src/GoogleServices/Mail/"
